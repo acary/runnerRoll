@@ -21,7 +21,7 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/event-details" element={<EventDetails />} />
               <Route path="/photo-upload" element={<PhotoUpload />} />
-              <Route path="/event/:eventId" element={<EventPreview />} />
+              <Route path="/event/:eventId/*" element={<EventPreview />} />
               <Route path="/my-events" element={<UserEvents />} />
               <Route path="/account" element={<AccountSettings />} />
             </Routes>
