@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/runnerRoll/static/css/main.2b0ea671.css",
-    "main.js": "/runnerRoll/static/js/main.c84ac524.js",
-    "index.html": "/runnerRoll/index.html",
-    "main.2b0ea671.css.map": "/runnerRoll/static/css/main.2b0ea671.css.map",
-    "main.c84ac524.js.map": "/runnerRoll/static/js/main.c84ac524.js.map"
+    "main.css": "./static/css/main.2b0ea671.css",
+    "main.js": "./static/js/main.e1b6b736.js",
+    "index.html": "./index.html",
+    "main.2b0ea671.css.map": "./static/css/main.2b0ea671.css.map",
+    "main.e1b6b736.js.map": "./static/js/main.e1b6b736.js.map"
   },
   "entrypoints": [
     "static/css/main.2b0ea671.css",
-    "static/js/main.c84ac524.js"
+    "static/js/main.e1b6b736.js"
   ]
 }
