@@ -14,7 +14,7 @@ const LandingPage = () => {
   });
 
   const [runnerName, setRunnerName] = useState('');
-  const [showSignup, setShowSignup] = useState(false);
+  const [showSignup,] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();

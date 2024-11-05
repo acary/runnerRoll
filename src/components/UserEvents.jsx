@@ -14,40 +14,40 @@ const UserEvents = () => {
   const [deleteConfirm, setDeleteConfirm] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const fetchUserEvents = async () => {
-    try {
-      const eventsQuery = query(
-        collection(db, 'events'),
-        where('userId', '==', user.uid)
-      );
-      
-      const querySnapshot = await getDocs(eventsQuery);
-      const eventsData = [];
-      
-      for (const doc of querySnapshot.docs) {
-        const event = doc.data();
-        const photoDoc = await getDocs(
-          query(collection(db, 'photos'), 
-          where('eventId', '==', doc.id))
+  useEffect(() => {
+    const fetchUserEvents = async () => {
+      try {
+        const eventsQuery = query(
+          collection(db, 'events'),
+          where('userId', '==', user.uid)
         );
         
-        eventsData.push({
-          id: doc.id,
-          ...event,
-          photoUrl: photoDoc.docs[0]?.data()?.imageUrl
-        });
+        const querySnapshot = await getDocs(eventsQuery);
+        const eventsData = [];
+        
+        for (const doc of querySnapshot.docs) {
+          const event = doc.data();
+          const photoDoc = await getDocs(
+            query(collection(db, 'photos'), 
+            where('eventId', '==', doc.id))
+          );
+          
+          eventsData.push({
+            id: doc.id,
+            ...event,
+            photoUrl: photoDoc.docs[0]?.data()?.imageUrl
+          });
+        }
+        
+        setEvents(eventsData);
+      } catch (err) {
+        console.error('Error fetching events:', err);
+        setError('Failed to load your events');
+      } finally {
+        setLoading(false);
       }
-      
-      setEvents(eventsData);
-    } catch (err) {
-      console.error('Error fetching events:', err);
-      setError('Failed to load your events');
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
 
-  useEffect(() => {
     if (user) {
       fetchUserEvents();
     }
