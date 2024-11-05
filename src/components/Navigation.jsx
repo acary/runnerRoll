@@ -9,13 +9,13 @@ const Navigation = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [isLoggingIn, setIsLoggingIn] = useState(false);
-  const [showDropdown, setShowDropdown] = useState(false);
-  const dropdownRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const navRef = useRef();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setShowDropdown(false);
+      if (navRef.current && !navRef.current.contains(event.target)) {
+        setIsOpen(false);
       }
     };
 
@@ -44,8 +44,12 @@ const Navigation = () => {
     }
   };
 
+  const handleNavClick = () => {
+    setIsOpen(false);
+  };
+
   return (
-    <nav className="navigation">
+    <nav ref={navRef}>
       <div className="nav-content">
         <Link to="/" className="nav-logo">
           Runner Roll
@@ -57,10 +61,9 @@ const Navigation = () => {
                 <i className="fas fa-trophy"></i>
                 <span>My Events</span>
               </Link>
-              <div className="profile-dropdown" ref={dropdownRef}>
+              <button onClick={() => setIsOpen(!isOpen)} className="profile-dropdown">
                 <div 
                   className="user-profile"
-                  onClick={() => setShowDropdown(!showDropdown)}
                 >
                   {user.photoURL ? (
                     <img src={user.photoURL} alt={user.displayName} className="profile-photo" />
@@ -68,13 +71,13 @@ const Navigation = () => {
                     <i className="fas fa-user-circle"></i>
                   )}
                 </div>
-                {showDropdown && (
+                {isOpen && (
                   <div className="dropdown-menu">
                     <div className="dropdown-header">
                       <p className="user-name">{user.displayName}</p>
                       <p className="user-email">{user.email}</p>
                     </div>
-                    <Link to="/account" className="dropdown-item">
+                    <Link to="/account" className="dropdown-item" onClick={handleNavClick}>
                       <i className="fas fa-cog"></i>
                       Account Settings
                     </Link>
@@ -84,7 +87,7 @@ const Navigation = () => {
                     </button>
                   </div>
                 )}
-              </div>
+              </button>
             </>
           ) : (
             <>
