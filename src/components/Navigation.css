@@ -90,20 +90,116 @@
   color: #6b7280;
 }
 
+.login-button {
+  background: #3b82f6;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.login-button:hover {
+  background: #2563eb;
+}
+
+.login-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.nav-links button i {
+  font-size: 1.1rem;
+}
+
 @media (max-width: 768px) {
   .nav-content {
     padding: 1rem;
   }
 
   .nav-links {
-    gap: 1rem;
+    gap: 0.5rem;
   }
 
-  .nav-link span {
-    display: none;
-  }
-
+  .nav-link span,
+  .login-button span,
   .sign-out-button span {
     display: none;
   }
+
+  .login-button,
+  .sign-out-button,
+  .nav-link {
+    padding: 0.5rem;
+  }
+
+  .login-button i,
+  .sign-out-button i,
+  .nav-link i {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+}
+
+.profile-dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 240px;
+  margin-top: 10px;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.dropdown-header {
+  padding: 15px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.user-name {
+  font-weight: 500;
+  color: #1f2937;
+  margin-bottom: 5px;
+}
+
+.user-email {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 15px;
+  color: #4b5563;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: none;
+  font-size: 1rem;
+}
+
+.dropdown-item:hover {
+  background-color: #f3f4f6;
+}
+
+.dropdown-item i {
+  font-size: 1.1rem;
+  width: 20px;
 } 
