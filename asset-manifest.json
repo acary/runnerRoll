@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/runnerRoll/static/css/main.2b0ea671.css",
+    "main.js": "/runnerRoll/static/js/main.f015a0e4.js",
+    "index.html": "/runnerRoll/index.html",
+    "main.2b0ea671.css.map": "/runnerRoll/static/css/main.2b0ea671.css.map",
+    "main.f015a0e4.js.map": "/runnerRoll/static/js/main.f015a0e4.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2b0ea671.css",
+    "static/js/main.f015a0e4.js"
+  ]
+}
