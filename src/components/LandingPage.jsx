@@ -67,6 +67,8 @@ const LandingPage = () => {
           <form onSubmit={handleRunnerSubmit}>
             <div className="form-group">
               <input
+                id="runnerName"
+                name="runnerName"
                 type="text"
                 value={runnerName}
                 onChange={(e) => setRunnerName(e.target.value)}
