@@ -1,0 +1,141 @@
+.photo-upload-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.photo-upload-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.photo-upload-header h1 {
+  color: #1f2937;
+  margin-bottom: 10px;
+}
+
+.photo-upload-header p {
+  color: #6b7280;
+  font-size: 1.1rem;
+}
+
+.upload-section {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.hidden-input {
+  display: none;
+}
+
+.upload-area {
+  border: 2px dashed #e5e7eb;
+  border-radius: 10px;
+  padding: 40px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.3s;
+  margin-bottom: 20px;
+}
+
+.upload-area:hover {
+  border-color: #3b82f6;
+}
+
+.upload-prompt {
+  color: #6b7280;
+}
+
+.upload-prompt i {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  color: #3b82f6;
+}
+
+.upload-prompt p {
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.upload-prompt span {
+  font-size: 0.9rem;
+}
+
+.image-preview {
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.image-preview img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.button-container {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.change-photo-button {
+  padding: 12px 24px;
+  background: #6b7280;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  flex: 1;
+}
+
+.change-photo-button:hover {
+  background: #4b5563;
+}
+
+.upload-button {
+  padding: 12px 24px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  flex: 1;
+}
+
+.upload-button:hover {
+  background: #2563eb;
+}
+
+.upload-button:disabled,
+.change-photo-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.error-message {
+  background-color: #fee2e2;
+  color: #dc2626;
+  padding: 12px;
+  border-radius: 6px;
+  margin: 20px 0;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .upload-section {
+    padding: 20px;
+  }
+
+  .button-container {
+    flex-direction: column;
+  }
+
+  .upload-area {
+    padding: 30px 15px;
+  }
+} 

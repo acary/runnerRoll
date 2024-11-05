@@ -1,14 +1,20 @@
 import React from 'react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './LandingPage.css';
 
 const LandingPage = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
     confirmPassword: ''
   });
+
+  const [runnerName, setRunnerName] = useState('');
+  const [showSignup, setShowSignup] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,6 +27,13 @@ const LandingPage = () => {
       ...formData,
       [e.target.name]: e.target.value
     });
+  };
+
+  const handleRunnerSubmit = (e) => {
+    e.preventDefault();
+    if (runnerName.trim()) {
+      navigate('/event-details', { state: { runnerName: runnerName } });
+    }
   };
 
   return (
@@ -48,56 +61,78 @@ const LandingPage = () => {
         </div>
       </section>
 
-      <section className="signup-section">
-        <div className="signup-form">
-          <h2>Sign Up Today</h2>
-          <form onSubmit={handleSubmit}>
+      <section className="runner-section">
+        <div className="runner-form">
+          <h2>Who's Your Champion?</h2>
+          <form onSubmit={handleRunnerSubmit}>
             <div className="form-group">
               <input
                 type="text"
-                name="name"
-                placeholder="Full Name"
-                value={formData.name}
-                onChange={handleChange}
+                value={runnerName}
+                onChange={(e) => setRunnerName(e.target.value)}
+                placeholder="Enter Runner's Name"
                 required
               />
             </div>
-            <div className="form-group">
-              <input
-                type="email"
-                name="email"
-                placeholder="Email Address"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <input
-                type="password"
-                name="confirmPassword"
-                placeholder="Confirm Password"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <button type="submit" className="signup-button">
-              Get Started
+            <button type="submit" className="start-button">
+              Start
             </button>
           </form>
         </div>
       </section>
+
+      {showSignup && (
+        <section className="signup-section">
+          <div className="signup-form">
+            <h2>Sign Up to Create Gift for {runnerName}</h2>
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Full Name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email Address"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Confirm Password"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <button type="submit" className="signup-button">
+                Get Started
+              </button>
+            </form>
+          </div>
+        </section>
+      )}
     </div>
   );
 };
