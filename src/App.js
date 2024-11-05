@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Navigation from './components/Navigation';
 import LandingPage from './components/LandingPage';
@@ -13,7 +13,6 @@ import './App.css';
 function App() {
   return (
     <AuthProvider>
-      <Router basename={process.env.PUBLIC_URL}>
         <div className="App">
           <Navigation />
           <main className="main-content">
@@ -27,7 +26,6 @@ function App() {
             </Routes>
           </main>
         </div>
-      </Router>
     </AuthProvider>
   );
 }
