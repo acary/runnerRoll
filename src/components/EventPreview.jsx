@@ -173,7 +173,8 @@ const EventPreview = () => {
           </div>
 
           <div className="action-buttons">
-            {!user ? (
+            {/* Sign In Button - Show when user is not logged in */}
+            {!user && (
               <button 
                 className="save-button"
                 onClick={handleGoogleSignIn}
@@ -182,7 +183,10 @@ const EventPreview = () => {
                 <i className="fas fa-sign-in-alt"></i>
                 Sign in to Save
               </button>
-            ) : !isEventSaved ? (
+            )}
+
+            {/* Save Button - Show when user is logged in, event is not saved, and not owned by another user */}
+            {user && !isEventSaved && !eventData.userId && (
               <button 
                 className="save-button"
                 onClick={handleSaveToAccount}
@@ -191,7 +195,10 @@ const EventPreview = () => {
                 <i className="fas fa-save"></i>
                 {saveStatus === 'saving' ? 'Saving...' : 'Save to My Events'}
               </button>
-            ) : (
+            )}
+
+            {/* Download Button - Show when user owns this event */}
+            {isEventSaved && (
               <button 
                 className="save-button download-button"
                 onClick={handleDownload}
@@ -200,7 +207,12 @@ const EventPreview = () => {
                 Download Photo
               </button>
             )}
-            <button className="share-button" onClick={handleShare}>
+
+            {/* Share Button - Always visible */}
+            <button 
+              className="share-button" 
+              onClick={handleShare}
+            >
               <i className="fas fa-share-alt"></i>
               Share Achievement
             </button>
