@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { auth, googleProvider } from '../firebase/config';
+import { useAuth } from '../../context/AuthContext';
+import { auth, googleProvider } from '../../firebase/config';
 import { signInWithPopup } from 'firebase/auth';
 import './Navigation.css';
 
@@ -61,16 +61,25 @@ const Navigation = () => {
                 <i className="fas fa-trophy"></i>
                 <span>My Events</span>
               </Link>
-              <button onClick={() => setIsOpen(!isOpen)} className="profile-dropdown">
-                <div 
-                  className="user-profile"
+              <div className="profile-dropdown">
+                <button 
+                  onClick={() => setIsOpen(!isOpen)} 
+                  className="profile-button"
+                  aria-label="Profile menu"
                 >
-                  {user.photoURL ? (
-                    <img src={user.photoURL} alt={user.displayName} className="profile-photo" />
-                  ) : (
-                    <i className="fas fa-user-circle"></i>
-                  )}
-                </div>
+                  <div className="profile-image-container">
+                    {user?.photoURL ? (
+                      <img 
+                        src={user.photoURL} 
+                        alt="Profile" 
+                        className="profile-photo" 
+                      />
+                    ) : (
+                      <i className="fas fa-user-circle profile-icon"></i>
+                    )}
+                  </div>
+                </button>
+
                 {isOpen && (
                   <div className="dropdown-menu">
                     <div className="dropdown-header">
@@ -87,7 +96,7 @@ const Navigation = () => {
                     </button>
                   </div>
                 )}
-              </button>
+              </div>
             </>
           ) : (
             <>

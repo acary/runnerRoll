@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { db } from '../firebase/config';
+import { db } from '../../firebase/config';
 import { collection, query, where, getDocs, deleteDoc, doc } from 'firebase/firestore';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 import './UserEvents.css';
 
 const UserEvents = () => {

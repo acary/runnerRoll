@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import { db, auth, googleProvider } from '../firebase/config';
+import { db, auth, googleProvider } from '../../firebase/config';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { signInWithPopup } from 'firebase/auth';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 import './EventPreview.css';
 
 const EventPreview = () => {
@@ -238,4 +238,4 @@ const EventPreview = () => {
   );
 };
 
-export default EventPreview; 
+export default EventPreview;
