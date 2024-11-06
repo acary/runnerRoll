@@ -146,7 +146,11 @@ const EventPreview = () => {
 
       <div className="event-preview-content">
         <div className="photo-container">
-          <img src={imageUrl} alt={`${runnerName} at ${details?.eventName || 'the event'}`} />
+          <img 
+            src={imageUrl} 
+            alt={`${runnerName} at ${details?.eventName || 'the event'}`}
+            className="event-photo"
+          />
         </div>
 
         <div className="event-info">
