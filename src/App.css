@@ -1,4 +1,4 @@
-.App {
+.app {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -6,8 +6,6 @@
 
 .main-content {
   flex: 1;
-  padding-top: 20px;
-  background-color: #f3f4f6;
 }
 
 /* Add any additional global styles here */

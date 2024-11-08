@@ -8,6 +8,7 @@ import PhotoUpload from './components/PhotoUpload';
 import EventPreview from './components/EventPreview';
 import UserEvents from './components/UserEvents';
 import AccountSettings from './components/AccountSettings';
+import Footer from './components/Footer';
 import './App.css';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
               <Route path="/account" element={<AccountSettings />} />
             </Routes>
           </main>
+          <Footer />
         </div>
     </AuthProvider>
   );
