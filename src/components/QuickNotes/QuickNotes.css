@@ -1,0 +1,55 @@
+.quick-notes {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 16px;
+}
+
+.quick-notes-title {
+  font-size: 1.25rem;
+  color: #333;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.quick-notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.quick-note-button {
+  background-color: white;
+  border: 2px solid #e1e4e8;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  text-align: left;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.quick-note-button:hover {
+  background-color: #f0f2f5;
+  border-color: #ccd0d5;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.quick-note-button:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .quick-notes {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+
+  .quick-note-button {
+    font-size: 1rem;
+    padding: 0.875rem 1.25rem;
+  }
+} 

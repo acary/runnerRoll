@@ -4,6 +4,7 @@ import { db, auth, googleProvider } from '../../firebase/config';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { signInWithPopup } from 'firebase/auth';
 import { useAuth } from '../../context/AuthContext';
+import Notes from '../Notes';
 import './EventPreview.css';
 
 const EventPreview = () => {
@@ -233,6 +234,10 @@ const EventPreview = () => {
             </div>
           )}
         </div>
+      </div>
+
+      <div className="notes-section">
+        <Notes eventId={eventId} isOwner={user?.uid === eventData.userId} />
       </div>
     </div>
   );

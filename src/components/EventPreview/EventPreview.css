@@ -190,4 +190,10 @@
 
 .action-buttons button i {
   margin-right: 8px;
+}
+
+.notes-section {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #eee;
 } 
