@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { db } from '../../firebase/config';
-import { collection, addDoc, query, where, orderBy, getDocs } from 'firebase/firestore';
+import { collection, addDoc, query, where, orderBy, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import { useAuth } from '../../context/AuthContext';
 import QuickNotes from '../QuickNotes';
+import { motion } from 'framer-motion';
+import './Notes.css';
+import { formatDistanceToNow } from 'date-fns';
 
 const QUILL_MODULES = {
   toolbar: [
@@ -77,7 +80,38 @@ const Notes = ({ eventId, isOwner }) => {
     }
   };
 
+  const formatTimeAgo = (dateString) => {
+    const date = new Date(dateString);
+    return formatDistanceToNow(date, { addSuffix: true });
+  };
+
+  const handleDeleteNote = async (noteId) => {
+    if (window.confirm('Are you sure you want to delete this note?')) {
+      try {
+        await deleteDoc(doc(db, 'notes', noteId));
+        setNotes(notes.filter(note => note.id !== noteId));
+      } catch (error) {
+        console.error('Error deleting note:', error);
+      }
+    }
+  };
+
   if (loading) return <div className="notes-loading">Loading notes...</div>;
+
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const item = {
+    hidden: { y: 20, opacity: 0 },
+    show: { y: 0, opacity: 1 }
+  };
 
   return (
     <div className="notes-container">
@@ -119,9 +153,22 @@ const Notes = ({ eventId, isOwner }) => {
       {isOwner && notes.length > 0 && (
         <div className="notes-section">
           <h4>Congratulatory Messages</h4>
-          <div className="notes-list">
+          <motion.div 
+            className="notes-list"
+            variants={container}
+            initial="hidden"
+            animate="show"
+          >
             {notes.map(note => (
-              <div key={note.id} className="note-item">
+              <motion.div
+                key={note.id}
+                className="note-item"
+                variants={item}
+                whileHover={{ 
+                  scale: 1.02,
+                  transition: { duration: 0.2 }
+                }}
+              >
                 <div className="note-header">
                   {note.authorPhoto ? (
                     <img 
@@ -136,15 +183,24 @@ const Notes = ({ eventId, isOwner }) => {
                   )}
                   <span className="author-name">{note.authorName}</span>
                   <span className="note-date">
-                    {new Date(note.createdAt).toLocaleDateString()}
+                    {formatTimeAgo(note.createdAt)}
                   </span>
+                  {isOwner && (
+                    <button 
+                      className="delete-note-button"
+                      onClick={() => handleDeleteNote(note.id)}
+                      aria-label="Delete note"
+                    >
+                      <i className="fas fa-trash-alt"></i>
+                    </button>
+                  )}
                 </div>
                 <p className="note-content">
                   {note.content.replace(/<[^>]*>/g, '')}
                 </p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       )}
     </div>

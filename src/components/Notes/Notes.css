@@ -181,19 +181,21 @@
 }
 
 .notes-list {
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
   padding: 2rem;
 }
 
 .note-item {
-  background: #f8fafc;
-  padding: 2.5rem;
-  border-radius: 16px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.05);
   border: 1px solid #e2e8f0;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
 }
 
 .note-item:hover {
@@ -236,32 +238,39 @@
 }
 
 .author-name {
-  font-weight: 600;
-  color: #1e293b;
-  font-size: 1.1rem;
-  letter-spacing: -0.01em;
+  font-weight: 500;
+  color: #64748b;
+  font-size: 0.95rem;
   flex-grow: 1;
+  letter-spacing: 0.01em;
 }
 
 .note-date {
-  color: #64748b;
-  font-size: 0.9rem;
-  font-weight: 500;
-  padding: 0.5rem 1rem;
-  background-color: #f8fafc;
-  border-radius: 20px;
+  color: #94a3b8;
+  font-size: 0.85rem;
+  font-weight: 400;
+  padding: 0.4rem 0.75rem;
+  background-color: #f1f5f9;
+  border-radius: 16px;
   white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.note-date:hover {
+  color: #64748b;
 }
 
 .note-content {
-  color: #334155;
+  color: #1e293b;
   line-height: 1.7;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
+  font-weight: 500;
   padding: 1.5rem;
   background-color: white;
   border-radius: 12px;
   border: 1px solid #e2e8f0;
   margin-top: 0.5rem;
+  letter-spacing: -0.01em;
 }
 
 @media (max-width: 640px) {
@@ -279,5 +288,45 @@
   .note-date {
     padding: 0.35rem 0.75rem;
     font-size: 0.85rem;
+  }
+}
+
+.delete-note-button {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.5rem;
+}
+
+.delete-note-button:hover {
+  background-color: #fee2e2;
+  color: #ef4444;
+}
+
+.delete-note-button:active {
+  transform: scale(0.95);
+}
+
+.delete-note-button i {
+  font-size: 0.9rem;
+}
+
+@media (max-width: 640px) {
+  .delete-note-button {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .delete-note-button i {
+    font-size: 0.8rem;
   }
 }
