@@ -30,30 +30,31 @@ const Notes = ({ eventId, isOwner }) => {
   const [showSuccess, setShowSuccess] = useState(false);
   const { user } = useAuth();
 
-  // Fetch existing notes
-  useEffect(() => {
-    const fetchNotes = async () => {
-      try {
-        const notesQuery = query(
-          collection(db, 'notes'),
-          where('eventId', '==', eventId),
-          orderBy('createdAt', 'desc')
-        );
-        
-        const snapshot = await getDocs(notesQuery);
-        const notesList = snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
-        
-        setNotes(notesList);
-      } catch (error) {
-        console.error('Error fetching notes:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // Move fetchNotes outside useEffect so it can be reused
+  const fetchNotes = async () => {
+    try {
+      const notesQuery = query(
+        collection(db, 'notes'),
+        where('eventId', '==', eventId),
+        orderBy('createdAt', 'desc')
+      );
+      
+      const snapshot = await getDocs(notesQuery);
+      const notesList = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      
+      setNotes(notesList);
+    } catch (error) {
+      console.error('Error fetching notes:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  // Use fetchNotes in useEffect
+  useEffect(() => {
     fetchNotes();
   }, [eventId]);
 
@@ -73,6 +74,7 @@ const Notes = ({ eventId, isOwner }) => {
 
       await addDoc(collection(db, 'notes'), noteData);
       setNewNote('');
+      await fetchNotes();
       setShowSuccess(true);
       setTimeout(() => setShowSuccess(false), 3000);
     } catch (error) {
@@ -89,7 +91,7 @@ const Notes = ({ eventId, isOwner }) => {
     if (window.confirm('Are you sure you want to delete this note?')) {
       try {
         await deleteDoc(doc(db, 'notes', noteId));
-        setNotes(notes.filter(note => note.id !== noteId));
+        await fetchNotes(); // Reload notes after deletion
       } catch (error) {
         console.error('Error deleting note:', error);
       }
@@ -170,22 +172,34 @@ const Notes = ({ eventId, isOwner }) => {
                 }}
               >
                 <div className="note-header">
-                  {note.authorPhoto ? (
-                    <img 
-                      src={note.authorPhoto} 
-                      alt={note.authorName} 
-                      className="author-photo"
-                    />
-                  ) : (
-                    <div className="anonymous-avatar">
-                      <i className="fas fa-user"></i>
-                    </div>
-                  )}
-                  <span className="author-name">{note.authorName}</span>
-                  <span className="note-date">
-                    {formatTimeAgo(note.createdAt)}
-                  </span>
-                  {isOwner && (
+                  <div className="author-info">
+                    {note.authorPhoto ? (
+                      <img src={note.authorPhoto} alt={note.authorName} className="author-photo" />
+                    ) : (
+                      <div className="anonymous-avatar">
+                        <i className="fas fa-user"></i>
+                      </div>
+                    )}
+                    <span className="author-name">{note.authorName}</span>
+                  </div>
+                  <div className="meta-info">
+                    <span className="note-date">{formatTimeAgo(note.createdAt)}</span>
+                    {isOwner && (
+                      <button 
+                        className="delete-note-button"
+                        onClick={() => handleDeleteNote(note.id)}
+                        aria-label="Delete note"
+                      >
+                        <i className="fas fa-trash-alt"></i>
+                      </button>
+                    )}
+                  </div>
+                </div>
+                <p className="note-content">
+                  {note.content.replace(/<[^>]*>/g, '')}
+                </p>
+                {isOwner && (
+                  <div className="note-footer">
                     <button 
                       className="delete-note-button"
                       onClick={() => handleDeleteNote(note.id)}
@@ -193,11 +207,8 @@ const Notes = ({ eventId, isOwner }) => {
                     >
                       <i className="fas fa-trash-alt"></i>
                     </button>
-                  )}
-                </div>
-                <p className="note-content">
-                  {note.content.replace(/<[^>]*>/g, '')}
-                </p>
+                  </div>
+                )}
               </motion.div>
             ))}
           </motion.div>
